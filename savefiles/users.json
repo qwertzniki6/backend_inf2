@@ -1,0 +1,69 @@
+[
+  {
+    "username": "HarryPotter",
+    "statusMessage": "The chosen one",
+    "profilePicture": "www.picture.com",
+    "followers": [
+      "HermioneGranger",
+      "RonWeasley"
+    ],
+    "following": [
+      "HermioneGranger",
+      "RonWeasley"
+    ]
+  },
+  {
+    "username": "HermioneGranger",
+    "statusMessage": "It's Vingardium Leviosa not Leviosaaa",
+    "profilePicture": "www.picture.com",
+    "followers": [
+      "HarryPotter",
+      "RonWeasley"
+    ],
+    "following": [
+      "HarryPotter",
+      "RonWeasley"
+    ]
+  },
+  {
+    "username": "RonWeasley",
+    "statusMessage": "EAT SLUGS!",
+    "profilePicture": "www.picture.com",
+    "followers": [
+      "HarryPotter",
+      "HermioneGranger"
+    ],
+    "following": [
+      "HarryPotter",
+      "HermioneGranger"
+    ]
+  },
+  {
+    "username": "DracoMalfoy",
+    "statusMessage": "Wait 'til my father hears about this!",
+    "profilePicture": "www.picture.com",
+    "followers": [
+      "VincentCrabbe",
+      "GregoryGoyle"
+    ],
+    "following": []
+  },
+  {
+    "username": "VincentCrabbe",
+    "statusMessage": "The cake is a lie",
+    "profilePicture": "www.picture.com",
+    "followers": [],
+    "following": [
+      "DracoMalfoy"
+    ]
+  },
+  {
+    "username": "GregoryGoyle",
+    "statusMessage": "Slytherin rules!",
+    "profilePicture": "www.picture.com",
+    "followers": [],
+    "following": [
+      "DracoMalfoy"
+    ]
+  }
+]
