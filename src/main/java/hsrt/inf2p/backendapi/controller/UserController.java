@@ -73,7 +73,6 @@ public class UserController {
             }
         }
 
-
         System.out.println("HarryPotter wird gefolgt von:");
         for (User user : userListe.get("HarryPotter").getFollowersSet()) {
             System.out.println(user.getUsername());
