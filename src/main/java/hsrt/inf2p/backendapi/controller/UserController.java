@@ -54,12 +54,19 @@ public class UserController {
 
         // MapAllUsers: key= String "HarryPotter" value= Objekt User HarryPotter
 
-        System.out.println("JSON array to Array objects...");
+        HashMap<String, User> userListe = new HashMap<String,User>();
+        for (User user : allUsers) {
+            userL
 
+        }
+
+        
+
+        /*
         // iteriere durch unsere Liste mit allen Benutzern
         for (User person : allUsers) {
 
-            // iteriere durch alle Follower eines Benutzers aus dem String Array mit den Followern
+            // iteriere durch alle Follower ("String") eines Benutzers aus dem String Array mit den Followern
             for (String follower: person.getFollowers()) {
 
                 // Objekt user mit dem gleichen Benutzernamen wie follower suchen
