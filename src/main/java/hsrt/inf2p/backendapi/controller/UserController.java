@@ -47,64 +47,37 @@ public class UserController {
     public void printJsonUsers() throws IOException {
 
         ObjectMapper objectMapper = new ObjectMapper();
-        
+
 
         // wir erzeugen User-Objekte aus der users.json datei
         User[] allUsers = objectMapper.readValue(new FileReader("savefiles/users.json"), User[].class);
 
         // MapAllUsers: key= String "HarryPotter" value= Objekt User HarryPotter
 
-        HashMap<String, User> userListe = new HashMap<String,User>();
-        for (User user : allUsers) {
-            userL
+        HashMap<String, User> userListe = new HashMap<>();
 
+        // wir erstellen eine HashMap aus unserer Benutzerliste
+        // Key= "Benutzername" Value= User-Objekt
+        for(User user : allUsers) {
+            userListe.put(user.getUsername(), user);
         }
 
-        
-
-        /*
-        // iteriere durch unsere Liste mit allen Benutzern
-        for (User person : allUsers) {
-
-            // iteriere durch alle Follower ("String") eines Benutzers aus dem String Array mit den Followern
-            for (String follower: person.getFollowers()) {
-
-                // Objekt user mit dem gleichen Benutzernamen wie follower suchen
-                // dem hashset hinzufügen
-
-                // iteriere durch alle Benutzer um den Follower in unserer Liste mit Benutzern zu finden
-                for (User search : allUsers) {
-                    //suchen nach dem Objekt Benutzer mit dem gleichen Namen wie dem Follower
-                    if (Objects.equals(search.getUsername(), follower)) {
-                        person.addFollower(search);
-                    }
-                }
-            }
-            // gleich wie oben nur für Following
-            for (String following: person.getFollowing()) {
-                for (User search : allUsers) {
-                    if (Objects.equals(search.getUsername(), following)){
-                        person.addFollowing(search);
-                    }
-                }
-            }
-
-        }
-         */
-
-        for (User search : allUsers) {
-            if (Objects.equals(search.getUsername(), "HarryPotter")) {
-                System.out.println("Die Followers von " + search.getUsername() + " sind: ");
-                for (User a : search.getFollowersAsSet()) {
-                    System.out.println(a.getUsername());
-                }
-                System.out.println(search.getUsername() + " folgt folgenden Leuten: ");
-                for (User a : search.getFollowingAsSet()) {
-                    System.out.println(a.getUsername());
-                }
+        // Wir iterieren durch unsere HashMap mit den Benutzern
+        for (Map.Entry<String, User> eintrag : userListe.entrySet()) {
+            //wir iterieren durch die String Liste mit den Followern eines Benutzers
+            for(String follower : eintrag.getValue().getFollowers()) {
+                // wir wählen den Benutzer aus der userListe und fügen ihn zum follower-Set hinzu
+                eintrag.getValue().addFollower(userListe.get(follower));
+                // gleichzeitig fügen wir in das set für following des ausgewählten Benutzers den Gefolgten ein
+                userListe.get(follower).addFollowing(eintrag.getValue());
             }
         }
 
+
+        System.out.println("HarryPotter wird gefolgt von:");
+        for (User user : userListe.get("HarryPotter").getFollowersSet()) {
+            System.out.println(user.getUsername());
+        }
     }
 
 
