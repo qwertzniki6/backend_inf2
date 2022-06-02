@@ -81,7 +81,9 @@ public class UserController {
                     }
                 }
             }
+
         }
+         */
 
         for (User search : allUsers) {
             if (Objects.equals(search.getUsername(), "HarryPotter")) {
