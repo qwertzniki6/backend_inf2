@@ -38,6 +38,10 @@ public class UserController {
 //    @Autowired
     public UserController userController;
 
+    public UserController () throws IOException {
+        initUsersFromJson(); // initialiseren von Benutzerdaten
+    }
+
     /**
      * Post Construct function to initialize the UserController
      */
