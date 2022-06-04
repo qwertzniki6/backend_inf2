@@ -56,9 +56,6 @@ public class UserController {
         // wir erzeugen User-Objekte aus der users.json datei
         User[] allUsers = objectMapper.readValue(new FileReader("savefiles/users.json"), User[].class);
 
-
-
-
         // wir erstellen eine HashMap aus unserer Benutzerliste
         // Key= "Benutzername" Value= User-Objekt
         for(User user : allUsers) {
@@ -129,11 +126,20 @@ public class UserController {
      */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/user")
-    public User addUser(@Valid @RequestBody @NotNull User user) {
-        System.out.println(user.getUsername());
-        System.out.println(user.getPassword());
+    public ResponseEntity<?> addUser(@Valid @RequestBody @NotNull User user) {
 
-        return user;
+        if (userListe.containsKey(user.getUsername())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(user);
+        }
+        System.out.println(user.getUsername() + user.getUsername() + " " + user.getPassword());
+
+        // wir fügen den User zur UserListe (HashMap) hinzu
+        userListe.put(user.getUsername(), user);
+
+        // hasht das Passwort und löscht das Klartext Passwort
+        user.hashPassword();
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     /**

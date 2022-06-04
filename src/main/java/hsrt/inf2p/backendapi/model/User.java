@@ -25,12 +25,14 @@ public class User {
     @NotNull
     private Object profilePicture; //TODO find or create better class than "Object"
 
-    private String[] followersString;
-    private String[] followingString;
 
     private Set<User> followersSet;
 
     private Set<User> followingSet;
+
+    private String[] followers;
+    private String[] following;
+
 
     public User() {
         this.followersSet = new HashSet<>();
@@ -59,9 +61,6 @@ public class User {
     }
 
     public int getPasswordHash() {
-        System.out.println("geht in pwhash rein");
-        System.out.println( ("45678" + "dkjfhs68sdh").hashCode() );
-        System.out.println( ("45678dkjfhs68sdh").hashCode() );
         return this.passwordHash;
     }
 
@@ -75,7 +74,7 @@ public class User {
     }
 
     public String[] getFollowers() {
-        return followersString;
+        return followers;
     }
 
     public Set<User> getFollowersAsSet() {
@@ -83,11 +82,11 @@ public class User {
     }
 
     public void setFollowers(String[] followers) {
-        followersString = followers;
+        this.followers=followers;
     }
 
     public String[] getFollowing() {
-        return followingString;
+        return following;
     }
 
     public Set<User> getFollowingAsSet() {
@@ -96,7 +95,7 @@ public class User {
 
 
     public void setFollowing(String[] following) {
-        followingString = following;
+        this.following = following;
     }
     
     public void addFollower(User u) {
@@ -108,7 +107,7 @@ public class User {
     }
 
     public String toString() {
-        return this.username + Arrays.toString(this.followersString) + Arrays.toString(this.followingString);
+        return "";
     }
 
 
