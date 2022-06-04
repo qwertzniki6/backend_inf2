@@ -127,7 +127,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/user")
     public ResponseEntity<?> addUser(@Valid @RequestBody @NotNull User user) {
-
+        // wenn Benutzer bereits vorhanden
         if (userListe.containsKey(user.getUsername())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(user);
         }
