@@ -32,8 +32,8 @@ import java.util.logging.Logger;
 @RestController
 public class UserController {
 
-    Collection<User> usersSet = new ArrayList<>();
-    private User user;
+    // userListe: key= String "HarryPotter" value= Objekt User HarryPotter
+    private HashMap<String, User> userListe = new HashMap<>();
 
 //    @Autowired
     public UserController userController;
@@ -56,9 +56,8 @@ public class UserController {
         // wir erzeugen User-Objekte aus der users.json datei
         User[] allUsers = objectMapper.readValue(new FileReader("savefiles/users.json"), User[].class);
 
-        // MapAllUsers: key= String "HarryPotter" value= Objekt User HarryPotter
 
-        HashMap<String, User> userListe = new HashMap<>();
+
 
         // wir erstellen eine HashMap aus unserer Benutzerliste
         // Key= "Benutzername" Value= User-Objekt
@@ -119,6 +118,7 @@ public class UserController {
     public Collection<User> getAllUsers() {
         return null;
     }
+
 
     /**
      * 2 Punkte

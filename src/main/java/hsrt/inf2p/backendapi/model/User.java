@@ -53,13 +53,18 @@ public class User {
         this.statusMessage = statusMessage;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public int getPasswordHash() {
+        System.out.println("geht in pwhash rein");
+        System.out.println( ("45678" + "dkjfhs68sdh").hashCode() );
+        System.out.println( ("45678dkjfhs68sdh").hashCode() );
+        return this.passwordHash;
+    }
+
 
     public Object getProfilePicture() {
         return profilePicture;
@@ -105,4 +110,6 @@ public class User {
     public String toString() {
         return this.username + Arrays.toString(this.followersString) + Arrays.toString(this.followingString);
     }
+
+
 }
