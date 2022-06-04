@@ -13,6 +13,8 @@ import java.util.Set;
 @Setter
 public class User {
 
+    static final String SALT = "dkjfhs68sdh";
+
     @NotNull
     private String username;
 
@@ -21,6 +23,9 @@ public class User {
 
     @NotNull
     private String password;
+
+    @NotNull
+    private int passwordHash;
 
     @NotNull
     private Object profilePicture; //TODO find or create better class than "Object"
@@ -56,8 +61,10 @@ public class User {
     }
 
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void hashPassword() {
+        this.passwordHash = (SALT + password).hashCode();
+        System.out.println(passwordHash);
+        this.password = null;
     }
 
     public int getPasswordHash() {

@@ -1,30 +1,22 @@
 package hsrt.inf2p.backendapi.controller;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hsrt.inf2p.backendapi.BackendApplication;
+
 import hsrt.inf2p.backendapi.model.User;
-import lombok.SneakyThrows;
+
 import org.jetbrains.annotations.NotNull;
-import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
-import org.springframework.asm.TypeReference;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration;
-import org.springframework.boot.autoconfigure.gson.GsonBuilderCustomizer;
-import org.springframework.boot.web.reactive.context.StandardReactiveWebEnvironment;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.codec.cbor.Jackson2CborDecoder;
-import org.springframework.http.converter.json.*;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
-import java.io.FileNotFoundException;
+
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Array;
+
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -35,7 +27,7 @@ public class UserController {
     // userListe: key= String "HarryPotter" value= Objekt User HarryPotter
     private HashMap<String, User> userListe = new HashMap<>();
 
-//    @Autowired
+
     public UserController userController;
 
     public UserController () throws IOException {
@@ -46,14 +38,11 @@ public class UserController {
      * Post Construct function to initialize the UserController
      */
 
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/printJsonUsers")
-    public void printJsonUsers() throws IOException {
+    public void initUsersFromJson() throws IOException {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-
-        // wir erzeugen User-Objekte aus der users.json datei
+        // wir erzeugen ein User Array mit User-Objekten aus der users.json datei
         User[] allUsers = objectMapper.readValue(new FileReader("savefiles/users.json"), User[].class);
 
         // wir erstellen eine HashMap aus unserer Benutzerliste
@@ -64,8 +53,11 @@ public class UserController {
 
         // Wir iterieren durch unsere HashMap mit den Benutzern
         for (Map.Entry<String, User> eintrag : userListe.entrySet()) {
+
+
             //wir iterieren durch die String Liste mit den Followern eines Benutzers
             for(String follower : eintrag.getValue().getFollowers()) {
+
                 // wir wählen den Benutzer aus der userListe und fügen ihn zum follower-Set hinzu
                 eintrag.getValue().addFollower(userListe.get(follower));
                 // gleichzeitig fügen wir in das set für following des ausgewählten Benutzers den Gefolgten ein
@@ -73,34 +65,19 @@ public class UserController {
             }
         }
 
-        System.out.println("HarryPotter wird gefolgt von:");
-        for (User user : userListe.get("HarryPotter").getFollowersSet()) {
-            System.out.println(user.getUsername());
+        //sout Ausgabe ---
+        System.out.println("Hallo");
+        System.out.println(userListe.get("HarryPotter").getUsername());
+        System.out.println("folgt folgenden Leuten:");
+        for (User u: userListe.get("HarryPotter").getFollowersSet()) {
+            System.out.println(u.getUsername());
         }
-    }
 
+
+    }
 
     @PostConstruct
     private void init() {
-        // System.out.println("InitSequenceBean: postConstruct");
-        // <bean class="InitSequenceBean" init-method="initMethod"></bean>
-
-//        User[] test;
-//        ArrayList<User> userList;
-//        ObjectMapper objectMapper = new ObjectMapper();
-//
-//        Map<String, String> user = new HashMap<>();
-//        user.put("username", "RonWeasley");
-//        user.put("status", "EAT SLUGS");
-//        user.put("profilePicture", "www.picture.com");
-//
-//        try {
-//            // {"username": "RonWeasley", "status": "EAT SLUGS!", "profilePicture": "www.picture.com", "password": "Passwort123"}
-//            // "/savefiles/users.json"
-//            System.out.println(objectMapper.readValue("{\"username\": \"RonWeasley\", \"status\": \"EAT SLUGS!\" , \"profilePicture\" : \"www.picture.com\", \"password\" : \"Passwort123\"}", User.class));
-//        } catch (JsonProcessingException e) {
-//            throw new RuntimeException(e);
-//        }
 
     }
 
@@ -124,7 +101,7 @@ public class UserController {
      * @param user a new user object, including username (unique identifier), statusMessage, and profilePicture; excluding followers and followings
      * @return the created user object for verification
      */
-    @ResponseStatus(HttpStatus.CREATED)
+
     @PostMapping("/user")
     public ResponseEntity<?> addUser(@Valid @RequestBody @NotNull User user) {
         // wenn Benutzer bereits vorhanden
