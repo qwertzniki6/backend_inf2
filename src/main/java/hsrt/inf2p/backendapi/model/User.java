@@ -77,7 +77,7 @@ public class User {
         return followers;
     }
 
-    public Set<User> getFollowersAsSet() {
+    public Set<User> getFollowersSet() {
         return followersSet;
     }
 
@@ -89,7 +89,7 @@ public class User {
         return following;
     }
 
-    public Set<User> getFollowingAsSet() {
+    public Set<User> getFollowingSet() {
         return followingSet;
     }
 
