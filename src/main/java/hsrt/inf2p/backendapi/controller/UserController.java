@@ -14,24 +14,44 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
+import java.nio.file.Paths;
 import java.util.*;
-import java.util.logging.Logger;
 
 @CrossOrigin(origins = "*")
 @RestController
 public class UserController {
 
     // userListe: key= String "HarryPotter" value= Objekt User HarryPotter
-    private HashMap<String, User> userListe = new HashMap<>();
+    private HashMap<String, User> userMap = new HashMap<>();
 
 
     public UserController userController;
 
     public UserController () throws IOException {
         initUsersFromJson(); // initialiseren von Benutzerdaten
+
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        User test = userMap.get("HarryPotter");
+        //JsonNode jsonNode = objectMapper.readTree(Paths.get("savefiles/users.json/").toFile()).get(0);
+        //JsonNode harrypotter = jsonNode.get(9).get("username");
+        //ObjectNode einnode = ( ((ObjectNode)jsonNode).putObject("adress"));
+                //einnode.put("abc","abc");
+        //objectMapper.writeValue(, test);
+
+//        JsonFactory factory = new JsonFactory();
+//        PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(Paths.get("savefiles/users.json/").toFile() , true)));
+//        objectMapper.writeValue(out, test);
+
+//        JsonGenerator generator = factory.createGenerator()
+//        generator.writeStartArray();
+//        generator.writeStartObject();
+//        generator.writeObjectField("id", 101);
+//        generator.writeObjectField("name", "Praj");
+//        generator.writeEndObject();
+//        generator.writeEndArray();
+//        generator.close();
     }
 
     /**
@@ -48,31 +68,30 @@ public class UserController {
         // wir erstellen eine HashMap aus unserer Benutzerliste
         // Key= "Benutzername" Value= User-Objekt
         for(User user : allUsers) {
-            userListe.put(user.getUsername(), user);
+            userMap.put(user.getUsername(), user);
         }
 
         // Wir iterieren durch unsere HashMap mit den Benutzern
-        for (Map.Entry<String, User> eintrag : userListe.entrySet()) {
+        for (Map.Entry<String, User> eintrag : userMap.entrySet()) {
 
 
             //wir iterieren durch die String Liste mit den Followern eines Benutzers
             for(String follower : eintrag.getValue().getFollowers()) {
 
                 // wir wählen den Benutzer aus der userListe und fügen ihn zum follower-Set hinzu
-                eintrag.getValue().addFollower(userListe.get(follower));
+                eintrag.getValue().addFollower(userMap.get(follower));
                 // gleichzeitig fügen wir in das set für following des ausgewählten Benutzers den Gefolgten ein
-                userListe.get(follower).addFollowing(eintrag.getValue());
+                userMap.get(follower).addFollowing(eintrag.getValue());
             }
         }
 
         //sout Ausgabe ---
         System.out.println("Hallo");
-        System.out.println(userListe.get("HarryPotter").getUsername());
+        System.out.println(userMap.get("HarryPotter").getUsername());
         System.out.println("folgt folgenden Leuten:");
-        for (User u: userListe.get("HarryPotter").getFollowersSet()) {
+        for (User u: userMap.get("HarryPotter").getFollowersSet()) {
             System.out.println(u.getUsername());
         }
-
 
     }
 
@@ -90,7 +109,8 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user")
     public Collection<User> getAllUsers() {
-        return (Collection<User>) userListe;
+        HashSet <User> collection = new HashSet<User>(userMap.values());
+        return collection;
     }
 
     /**
@@ -102,20 +122,30 @@ public class UserController {
      */
 
     @PostMapping("/user")
-    public ResponseEntity<?> addUser(@Valid @RequestBody @NotNull User user) {
+    public ResponseEntity<?> addUser(@Valid @RequestBody @NotNull User user) throws IOException {
         // prüft ob Benutzer bereits vorhanden
-        if (userListe.containsKey(user.getUsername())) {
+        if (userMap.containsKey(user.getUsername())) {
             System.out.println("Benutzer bereits vorhanden");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(user);
         }
 
         // wir fügen den User zur UserListe (HashMap) hinzu
-        userListe.put(user.getUsername(), user);
+        userMap.put(user.getUsername(), user);
 
         // hasht das Passwort und überschreibt das Klartext Passwort
         user.hashPassword();
 
         System.out.println("User registriert... username:" + user.getUsername() + " - status:" + user.getStatus() + " - Passwort-Hash: " + user.getPassword());
+
+        //objectMapper um Benutzerdaten in json file zu speichern
+//        ObjectMapper objectMapper = new ObjectMapper();
+//
+//        JsonNode jsonNode = objectMapper.readTree(Paths.get("savefiles/users.json/").toFile());
+//        System.out.println(jsonNode.get(0));
+
+        //PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(Paths.get("savefiles/users.json/").toFile(), true)));
+        // konvertiere Benutzer in json
+        //objectMapper.writeValue(out, user);
 
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
