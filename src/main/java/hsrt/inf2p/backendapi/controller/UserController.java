@@ -108,13 +108,14 @@ public class UserController {
         if (userListe.containsKey(user.getUsername())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(user);
         }
-        System.out.println(user.getUsername() + user.getUsername() + " " + user.getPassword());
 
         // wir fügen den User zur UserListe (HashMap) hinzu
         userListe.put(user.getUsername(), user);
 
         // hasht das Passwort und löscht das Klartext Passwort
         user.hashPassword();
+
+        System.out.println(user.getUsername() + " " + user.getPassword());
 
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }

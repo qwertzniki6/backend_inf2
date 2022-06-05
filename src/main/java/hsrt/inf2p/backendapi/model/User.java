@@ -1,11 +1,9 @@
 package hsrt.inf2p.backendapi.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,13 +17,10 @@ public class User {
     private String username;
 
     @NotNull
-    private String statusMessage;
+    private String status;
 
     @NotNull
     private String password;
-
-    @NotNull
-    private int passwordHash;
 
     @NotNull
     private Object profilePicture; //TODO find or create better class than "Object"
@@ -52,23 +47,21 @@ public class User {
         this.username = username;
     }
 
-    public String getStatusMessage() {
-        return statusMessage;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStatusMessage(String statusMessage) {
-        this.statusMessage = statusMessage;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
 
     public void hashPassword() {
-        this.passwordHash = (SALT + password).hashCode();
-        System.out.println(passwordHash);
-        this.password = null;
+        this.password = String.valueOf((SALT + password).hashCode());
     }
 
-    public int getPasswordHash() {
-        return this.passwordHash;
+    public @NotNull String getPassword() {
+        return this.password;
     }
 
 

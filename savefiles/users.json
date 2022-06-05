@@ -1,7 +1,7 @@
 [
   {
     "username": "HarryPotter",
-    "statusMessage": "The chosen one",
+    "status": "The chosen one",
     "profilePicture": "www.picture.com",
     "followers": [
       "HermioneGranger",
@@ -14,7 +14,7 @@
   },
   {
     "username": "HermioneGranger",
-    "statusMessage": "It's Vingardium Leviosa not Leviosaaa",
+    "status": "It's Vingardium Leviosa not Leviosaaa",
     "profilePicture": "www.picture.com",
     "followers": [
       "HarryPotter",
@@ -27,7 +27,7 @@
   },
   {
     "username": "RonWeasley",
-    "statusMessage": "EAT SLUGS!",
+    "status": "EAT SLUGS!",
     "profilePicture": "www.picture.com",
     "followers": [
       "HarryPotter",
@@ -40,7 +40,7 @@
   },
   {
     "username": "DracoMalfoy",
-    "statusMessage": "Wait 'til my father hears about this!",
+    "status": "Wait 'til my father hears about this!",
     "profilePicture": "www.picture.com",
     "followers": [
       "VincentCrabbe",
@@ -50,7 +50,7 @@
   },
   {
     "username": "VincentCrabbe",
-    "statusMessage": "The cake is a lie",
+    "status": "The cake is a lie",
     "profilePicture": "www.picture.com",
     "followers": [],
     "following": [
@@ -59,7 +59,7 @@
   },
   {
     "username": "GregoryGoyle",
-    "statusMessage": "Slytherin rules!",
+    "status": "Slytherin rules!",
     "profilePicture": "www.picture.com",
     "followers": [],
     "following": [
