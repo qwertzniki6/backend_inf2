@@ -90,9 +90,8 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user")
     public Collection<User> getAllUsers() {
-        return null;
+        return (Collection<User>) userListe;
     }
-
 
     /**
      * 2 Punkte
@@ -104,15 +103,16 @@ public class UserController {
 
     @PostMapping("/user")
     public ResponseEntity<?> addUser(@Valid @RequestBody @NotNull User user) {
-        // wenn Benutzer bereits vorhanden
+        // prüft ob Benutzer bereits vorhanden
         if (userListe.containsKey(user.getUsername())) {
+            System.out.println("Benutzer bereits vorhanden");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(user);
         }
 
         // wir fügen den User zur UserListe (HashMap) hinzu
         userListe.put(user.getUsername(), user);
 
-        // hasht das Passwort und löscht das Klartext Passwort
+        // hasht das Passwort und überschreibt das Klartext Passwort
         user.hashPassword();
 
         System.out.println("User registriert... username:" + user.getUsername() + " - status:" + user.getStatus() + " - Passwort-Hash: " + user.getPassword());

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,7 +24,7 @@ public class User {
     private String password;
 
     @NotNull
-    private Object profilePicture; //TODO find or create better class than "Object"
+    private String profilePicture; //TODO find or create better class than "Object"
 
 
     private Set<User> followersSet;
@@ -33,8 +34,7 @@ public class User {
     private String[] followers;
     private String[] following;
 
-
-    public User() {
+    public User () {
         this.followersSet = new HashSet<>();
         this.followingSet = new HashSet<>();
     }
@@ -56,8 +56,9 @@ public class User {
     }
 
 
-    public void hashPassword() {
+    public String hashPassword() {
         this.password = String.valueOf((SALT + password).hashCode());
+        return this.password;
     }
 
     public @NotNull String getPassword() {
@@ -65,11 +66,11 @@ public class User {
     }
 
 
-    public Object getProfilePicture() {
+    public String getProfilePicture() {
         return profilePicture;
     }
 
-    public void setProfilePicture(Object profilePicture) {
+    public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
     }
 
