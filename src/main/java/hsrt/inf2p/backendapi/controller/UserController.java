@@ -115,7 +115,7 @@ public class UserController {
         // hasht das Passwort und löscht das Klartext Passwort
         user.hashPassword();
 
-        System.out.println("User registriert... username:" + user.getUsername() + " status " + user.getStatus() + " Passwort-Hash " + user.getPassword());
+        System.out.println("User registriert... username:" + user.getUsername() + " - status:" + user.getStatus() + " - Passwort-Hash: " + user.getPassword());
 
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
