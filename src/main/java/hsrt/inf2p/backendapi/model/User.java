@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,12 +32,14 @@ public class User {
 
     //private Set<User> followingSet;
 
-    private String[] followers;
-    private String[] following;
+    private ArrayList<String> followers;
+    private ArrayList <String> following;
 
     public User () {
         //this.followersSet = new HashSet<>();
         //this.followingSet = new HashSet<>();
+        this.followers = new ArrayList<>();
+        this.following = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -74,7 +77,7 @@ public class User {
         this.profilePicture = profilePicture;
     }
 
-    public String[] getFollowers() {
+    public ArrayList <String> getFollowers() {
         return followers;
     }
 
@@ -82,11 +85,11 @@ public class User {
         //return followersSet;
     //}
 
-    public void setFollowers(String[] followers) {
+    public void setFollowers( ArrayList <String> followers) {
         this.followers=followers;
     }
 
-    public String[] getFollowing() {
+    public ArrayList <String> getFollowing() {
         return following;
     }
 
@@ -95,21 +98,20 @@ public class User {
     //}
 
 
-    public void setFollowing(String[] following) {
+    public void setFollowing(ArrayList <String> following) {
         this.following = following;
     }
     
-    //public void addFollower(User u) {
-        //this.followersSet.add(u);
-    //}
-
-    //public void addFollowing(User u) {
-        //this.followingSet.add(u);
-    //}
-
-    public String toString() {
-        return "string";
+    public void addFollower (User u) {
+        this.followers.add(u.getUsername());
     }
 
+    public void addFollowing(User u) {
+        this.following.add(u.getUsername());
+    }
 
+    @Override
+    public String toString() {
+        return "Benutzername: " + this.username + " - Status: " + this.status + " - Hash-Wert Passwort: " + this.password;
+    }
 }

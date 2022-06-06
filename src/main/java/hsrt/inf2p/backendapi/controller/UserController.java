@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import hsrt.inf2p.backendapi.model.StatusTransferObject;
 import hsrt.inf2p.backendapi.model.User;
 
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +41,7 @@ public class UserController {
     public UserController userController;
 
         // wieder in Json reinschreiben
-    public void updateJson () throws IOException {
+    public void updateJson () {
         User [] userArray = new User[userMap.size()];
         int i=0;
         for (Map.Entry <String,User> eintrag : userMap.entrySet()) {
@@ -48,11 +49,23 @@ public class UserController {
             i++;
         }
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.writeValue(new FileWriter("savefiles/users.json"), userArray);
+
+        try {
+            objectMapper.writeValue(new FileWriter("savefiles/users.json"), userArray);
+        } catch(IOException e){
+            System.out.println(e);
+        }
+    }
+
+    public void printAllUsers () {
+        for (Map.Entry<String, User> eintrag : userMap.entrySet()) {
+            System.out.println(eintrag.getValue().toString());
+        }
     }
 
     public UserController () throws IOException {
         initUsersFromJson(); // initialiseren von Benutzerdaten
+        printAllUsers();
     }
 
     /**
@@ -71,29 +84,6 @@ public class UserController {
         for(User user : allUsers) {
            userMap.put(user.getUsername(), user);
         }
-
-        // Wir iterieren durch unsere HashMap mit den Benutzern
-//        for (Map.Entry<String, User> eintrag : userMap.entrySet()) {
-//
-//
-//            //wir iterieren durch die String Liste mit den Followern eines Benutzers
-//            for(String follower : eintrag.getValue().getFollowers()) {
-//
-//                // wir wählen den Benutzer aus der userListe und fügen ihn zum follower-Set hinzu
-//                eintrag.getValue().addFollower(userMap.get(follower));
-//                // gleichzeitig fügen wir in das set für following des ausgewählten Benutzers den Gefolgten ein
-//                userMap.get(follower).addFollowing(eintrag.getValue());
-//            }
-//        }
-
-        //sout Ausgabe ---
-//        System.out.println("Hallo");
-//        System.out.println(userMap.get("HarryPotter").getUsername());
-//        System.out.println("folgt folgenden Leuten:");
-//        for (User u: userMap.get("HarryPotter").getFollowersSet()) {
-//            System.out.println(u.getUsername());
-//        }
-
     }
 
     @PostConstruct
@@ -138,15 +128,7 @@ public class UserController {
 
         System.out.println("User registriert... username:" + user.getUsername() + " - status:" + user.getStatus() + " - Passwort-Hash: " + user.getPassword());
 
-        //objectMapper um Benutzerdaten in json file zu speichern
-        //ObjectMapper objectMapper = new ObjectMapper();
-
-        //JsonNode jsonNode = objectMapper.readTree(Paths.get("savefiles/users.json/").toFile());
-        //System.out.println(jsonNode.get(0));
-
-        //PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(Paths.get("savefiles/users.json/").toFile(), true)));
-        // konvertiere Benutzer in json
-        //objectMapper.writeValue(out, user);
+        updateJson();
 
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
@@ -161,7 +143,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user/{username}")
     public User getUser(@PathVariable(name = "username") String username) {
-        return null;
+        return userMap.get(username);
     }
 
     /**
@@ -174,9 +156,11 @@ public class UserController {
      */
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/user/{username}/profilePicture")
-    public User updateProfilePicture(@PathVariable String username, @Valid @RequestBody @NotNull Object profilePicture) {
+    public User updateProfilePicture(@PathVariable String username, @Valid @RequestBody @NotNull String profilePicture) {
         //TODO find appropriate class for profilePicture and replace 'Object'
-        return null;
+        userMap.get(username).setProfilePicture(profilePicture);
+        updateJson();
+        return userMap.get(username);
     }
 
     /**
@@ -189,9 +173,10 @@ public class UserController {
      */
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/user/{username}/status")
-    public User updateStatus(@PathVariable String username, @Valid @RequestBody @NotNull Object status) {
-        //TODO find appropriate class for status and replace 'Object'
-        return null;
+    public User updateStatus(@PathVariable String username, @Valid @RequestBody @NotNull StatusTransferObject status) {
+        userMap.get(username).setStatus(status.getStatus());
+        updateJson();
+        return userMap.get(username);
     }
 
     /**
