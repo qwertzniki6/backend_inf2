@@ -1,18 +1,11 @@
 package hsrt.inf2p.backendapi.controller;
 
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.json.JsonWriteFeature;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import hsrt.inf2p.backendapi.model.StatusTransferObject;
 import hsrt.inf2p.backendapi.model.User;
 
+import hsrt.inf2p.backendapi.model.followersTransferObject;
 import hsrt.inf2p.backendapi.model.profilePictureTransferObject;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,9 +19,6 @@ import javax.validation.Valid;
 
 import java.io.*;
 
-import java.lang.reflect.Array;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 @CrossOrigin(origins = "*")
@@ -51,8 +41,10 @@ public class UserController {
         }
         ObjectMapper objectMapper = new ObjectMapper();
 
+
+
         try {
-            objectMapper.writeValue(new FileWriter("savefiles/users.json"), userArray);
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new FileWriter("savefiles/users.json"), userArray);
         } catch(IOException e){
             System.out.println(e);
         }
@@ -193,11 +185,29 @@ public class UserController {
      */
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/follow")
-    public List<User> updateFollow(@Valid @RequestBody @NotNull Object follow) {
+    public List<User> updateFollow(@Valid @RequestBody @NotNull followersTransferObject dataObject) {
         //TODO find appropriate class for follow and replace 'Object'
-        return null;
 
+        // follower user = dataObject.getFollowing()
 
+        //harry folgt Hermoine
+        //User A = HarryPotter - follower (er folgt) = username1
+        // User B = HermoineGranger - following (ihr wird gefolgt) = username2
+        // Adde HermoineGranegr in Harrys Following Liste
+        // Adde harry zu Hermoines Follower
+        String follower = dataObject.getUsername1();
+        String following = dataObject.getUsername2();
+
+        userMap.get(follower).addFollowing(following);
+        userMap.get(following).addFollower(follower);
+
+        updateJson();
+
+        List <User> returningUsers = new ArrayList<>();
+        returningUsers.add(userMap.get(follower));
+        returningUsers.add(userMap.get(following));
+
+        return returningUsers;
     }
 
     /**
@@ -213,9 +223,24 @@ public class UserController {
      */
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/follow")
-    public List<User> deleteFollow(@Valid @RequestBody @NotNull Object follow) {
+    public List<User> deleteFollow(@Valid @RequestBody @NotNull followersTransferObject data) {
         //TODO find appropriate class for follow and replace 'Object'
-        return null;
+        String follower = data.getUsername1();
+        String following = data.getUsername2();
+        if (userMap.get(follower).removeFollowing(following)==false) {
+            System.out.println("entfernen des gefolgten " + following + "aus following von" + follower + "hat nicht geklappt!");
+        }
+        if(userMap.get(following).removeFollower(follower)==false){
+            System.out.println("");
+        }
+
+        updateJson();
+
+        List <User> returningUsers = new ArrayList<>();
+        returningUsers.add(userMap.get(follower));
+        returningUsers.add(userMap.get(following));
+
+        return returningUsers;
     }
 
 }

@@ -102,13 +102,23 @@ public class User {
         this.following = following;
     }
     
-    public void addFollower (User u) {
-        this.followers.add(u.getUsername());
+    public void addFollower(String u) {
+        this.followers.add(u);
     }
 
-    public void addFollowing(User u) {
-        this.following.add(u.getUsername());
+    public void addFollowing(String u) {
+        this.following.add(u);
     }
+
+    public boolean removeFollower(String u) {
+        return followers.remove(u);
+    }
+
+    public boolean removeFollowing(String u) {
+         return following.remove(u);
+    }
+
+
 
     @Override
     public String toString() {
