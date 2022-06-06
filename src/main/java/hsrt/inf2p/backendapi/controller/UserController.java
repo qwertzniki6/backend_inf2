@@ -66,7 +66,7 @@ public class UserController {
 
     public UserController () throws IOException {
         initUsersFromJson(); // initialiseren von Benutzerdaten
-        printAllUsers();
+        printAllUsers(); // Benutzerdaten in der Konsole ausgeben
     }
 
     /**
@@ -127,7 +127,7 @@ public class UserController {
         // hasht das Passwort und überschreibt das Klartext Passwort
         user.hashPassword();
 
-        System.out.println("User registriert... username:" + user.getUsername() + " - status:" + user.getStatus() + " - Passwort-Hash: " + user.getPassword());
+        System.out.println("User registriert..." + userMap.get(user.getUsername()).toString() );
 
         updateJson();
 
@@ -196,6 +196,8 @@ public class UserController {
     public List<User> updateFollow(@Valid @RequestBody @NotNull Object follow) {
         //TODO find appropriate class for follow and replace 'Object'
         return null;
+
+
     }
 
     /**
