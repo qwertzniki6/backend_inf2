@@ -48,6 +48,20 @@
   "followers" : [ "VincentCrabbe", "GregoryGoyle" ],
   "following" : [ ]
 }, {
+  "username" : "example",
+  "status" : "Maschine",
+  "password" : "997201388",
+  "profilePicture" : "https://www.google.de/logos/doodles/2022/fasia-jansens-93rd-birthday-6753651837109432.2-l.webp",
+  "followers" : [ ],
+  "following" : [ ]
+}, {
+  "username" : "example2",
+  "status" : "Maschine",
+  "password" : "32290921",
+  "profilePicture" : "https://www.google.de/logos/doodles/2022/fasia-jansens-93rd-birthday-6753651837109432.2-l.webp",
+  "followers" : [ ],
+  "following" : [ ]
+}, {
   "username" : "RonWeasley",
   "status" : "EAT SLUGS!",
   "password" : "997201388",

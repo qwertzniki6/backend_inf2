@@ -13,7 +13,7 @@ import java.util.Set;
 @Setter
 public class User {
 
-    static final String SALT = "dkjfhs68sdh";
+    private static final String SALT = "dkjfhs68sdh";
 
     @NotNull
     private String username;
@@ -81,9 +81,6 @@ public class User {
         return followers;
     }
 
-    //public Set<User> getFollowersSet() {
-        //return followersSet;
-    //}
 
     public void setFollowers( ArrayList <String> followers) {
         this.followers=followers;
@@ -92,10 +89,6 @@ public class User {
     public ArrayList <String> getFollowing() {
         return following;
     }
-
-    //public Set<User> getFollowingSet() {
-        //return followingSet;
-    //}
 
 
     public void setFollowing(ArrayList <String> following) {
@@ -118,7 +111,9 @@ public class User {
          return following.remove(u);
     }
 
-
+    public static String getSALT() {
+        return SALT;
+    }
 
     @Override
     public String toString() {

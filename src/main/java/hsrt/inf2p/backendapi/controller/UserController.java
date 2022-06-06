@@ -134,16 +134,20 @@ public class UserController {
         return userMap.get(username);
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/user/{username}")
-    public User loginUser(@PathVariable(name = "username") LoginData login) {
+    @PostMapping("/user/login/{username}")
+    public boolean loginUser(@Valid @RequestBody @NotNull LoginData login) {
+        System.out.println("Login Versuch");
         String username = login.getUserName();
         String password =login.getPassword();
-
-        if (userMap.get(username).getPassword() == String.valueOf((User.SALT + password).hash()) {
-
+        String hashofpassword = String.valueOf((User.getSALT() + password).hashCode());
+        System.out.println("Benutzer " + username + " eingegebenes Passwort ist:" + password);
+        System.out.println("Gehashter Code ist: " + hashofpassword);
+        if (userMap.get(username).getPassword().equals(hashofpassword)) {
+            System.out.println("Login hat geklappt");
+            return true;
         }
-
+        System.out.println("Login hat nicht geklappt");
+        return false;
     }
 
     /**

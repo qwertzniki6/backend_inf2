@@ -1,12 +1,19 @@
 package hsrt.inf2p.backendapi.model;
 
 public class LoginData {
-    private String password, username;
+    private String password;
+    private String username;
 
-    public LoginData () {}
+    public LoginData () {
+
+    }
 
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUserName() {
