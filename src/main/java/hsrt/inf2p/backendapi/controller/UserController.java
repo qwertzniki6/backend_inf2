@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import hsrt.inf2p.backendapi.model.StatusTransferObject;
 import hsrt.inf2p.backendapi.model.User;
 
+import hsrt.inf2p.backendapi.model.profilePictureTransferObject;
 import org.jetbrains.annotations.NotNull;
 
 import org.springframework.http.HttpStatus;
@@ -156,9 +157,9 @@ public class UserController {
      */
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/user/{username}/profilePicture")
-    public User updateProfilePicture(@PathVariable String username, @Valid @RequestBody @NotNull String profilePicture) {
+    public User updateProfilePicture(@PathVariable String username, @Valid @RequestBody @NotNull profilePictureTransferObject profilePicture) {
         //TODO find appropriate class for profilePicture and replace 'Object'
-        userMap.get(username).setProfilePicture(profilePicture);
+        userMap.get(username).setProfilePicture(profilePicture.getprofilePicture());
         updateJson();
         return userMap.get(username);
     }
