@@ -1,9 +1,9 @@
 package hsrt.inf2p.backendapi.model;
 
-public class profilePictureTransferObject {
+public class ProfilePictureTransferObject {
     private String profilePicture;
 
-    public profilePictureTransferObject() {
+    public ProfilePictureTransferObject() {
     }
 
     public String getprofilePicture() {

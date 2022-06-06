@@ -1,11 +1,11 @@
 package hsrt.inf2p.backendapi.model;
 
-public class followersTransferObject {
+public class FollowersTransferObject {
 
     private String username1;
     private String username2;
 
-    public followersTransferObject(){
+    public FollowersTransferObject(){
     }
 
     public String getUsername1() {

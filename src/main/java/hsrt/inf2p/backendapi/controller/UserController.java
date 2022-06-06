@@ -2,11 +2,8 @@ package hsrt.inf2p.backendapi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import hsrt.inf2p.backendapi.model.StatusTransferObject;
-import hsrt.inf2p.backendapi.model.User;
+import hsrt.inf2p.backendapi.model.*;
 
-import hsrt.inf2p.backendapi.model.followersTransferObject;
-import hsrt.inf2p.backendapi.model.profilePictureTransferObject;
 import org.jetbrains.annotations.NotNull;
 
 import org.springframework.http.HttpStatus;
@@ -137,6 +134,18 @@ public class UserController {
         return userMap.get(username);
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/user/{username}")
+    public User loginUser(@PathVariable(name = "username") LoginData login) {
+        String username = login.getUserName();
+        String password =login.getPassword();
+
+        if (userMap.get(username).getPassword() == String.valueOf((User.SALT + password).hash()) {
+
+        }
+
+    }
+
     /**
      * 2 Punkte
      * Changes the user's profile picture
@@ -147,7 +156,7 @@ public class UserController {
      */
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/user/{username}/profilePicture")
-    public User updateProfilePicture(@PathVariable String username, @Valid @RequestBody @NotNull profilePictureTransferObject profilePicture) {
+    public User updateProfilePicture(@PathVariable String username, @Valid @RequestBody @NotNull ProfilePictureTransferObject profilePicture) {
         //TODO find appropriate class for profilePicture and replace 'Object'
         userMap.get(username).setProfilePicture(profilePicture.getprofilePicture());
         updateJson();
@@ -183,16 +192,9 @@ public class UserController {
      */
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/follow")
-    public List<User> updateFollow(@Valid @RequestBody @NotNull followersTransferObject dataObject) {
+    public List<User> updateFollow(@Valid @RequestBody @NotNull FollowersTransferObject dataObject) {
         //TODO find appropriate class for follow and replace 'Object'
 
-        // follower user = dataObject.getFollowing()
-
-        //harry folgt Hermoine
-        //User A = HarryPotter - follower (er folgt) = username1
-        // User B = HermoineGranger - following (ihr wird gefolgt) = username2
-        // Adde HermoineGranegr in Harrys Following Liste
-        // Adde harry zu Hermoines Follower
         String follower = dataObject.getUsername1();
         String following = dataObject.getUsername2();
 
@@ -221,7 +223,7 @@ public class UserController {
      */
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/follow")
-    public List<User> deleteFollow(@Valid @RequestBody @NotNull followersTransferObject data) {
+    public List<User> deleteFollow(@Valid @RequestBody @NotNull FollowersTransferObject data) {
         //TODO find appropriate class for follow and replace 'Object'
         String follower = data.getUsername1();
         String following = data.getUsername2();
@@ -229,7 +231,7 @@ public class UserController {
             System.out.println("entfernen des gefolgten " + following + "aus following von" + follower + "hat nicht geklappt!");
         }
         if(userMap.get(following).removeFollower(follower)==false){
-            System.out.println("");
+            System.out.println("entfernen von" + follower + "aus den followern von" + following + " hat nicht geklappt!");
         }
 
         updateJson();
