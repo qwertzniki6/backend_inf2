@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import hsrt.inf2p.backendapi.model.User;
 
@@ -21,7 +22,9 @@ import javax.validation.Valid;
 
 import java.io.*;
 
+import java.lang.reflect.Array;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 @CrossOrigin(origins = "*")
@@ -34,29 +37,20 @@ public class UserController {
 
     public UserController userController;
 
+        // wieder in Json reinschreiben
+    public void updateJson () throws IOException {
+        User [] userArray = new User[userMap.size()];
+        int i=0;
+        for (Map.Entry <String,User> eintrag : userMap.entrySet()) {
+            userArray[i] = eintrag.getValue();
+            i++;
+        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.writeValue(new FileWriter("savefiles/users.json"), userArray);
+    }
+
     public UserController () throws IOException {
         initUsersFromJson(); // initialiseren von Benutzerdaten
-
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        User test = userMap.get("HarryPotter");
-        //JsonNode jsonNode = objectMapper.readTree(Paths.get("savefiles/users.json/").toFile()).get(0);
-        //JsonNode harrypotter = jsonNode.get(9).get("username");
-        //ObjectNode einnode = ( ((ObjectNode)jsonNode).putObject("adress"));
-                //einnode.put("abc","abc");
-        //objectMapper.writeValue(, test);
-
-//        JsonFactory factory = new JsonFactory();
-//        PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(Paths.get("savefiles/users.json/").toFile() , true)));
-//        objectMapper.writeValue(out, test);
-
-//        JsonGenerator generator = factory.createGenerator()
-//        generator.writeStartArray();
-//        generator.writeStartObject();
-//        generator.writeObjectField("id", 101);
-//        generator.writeObjectField("name", "Praj");
-//        generator.writeEndObject();
-//        generator.writeEndArray();
-//        generator.close();
     }
 
     /**
@@ -70,33 +64,33 @@ public class UserController {
         // wir erzeugen ein User Array mit User-Objekten aus der users.json datei
         User[] allUsers = objectMapper.readValue(new FileReader("savefiles/users.json"), User[].class);
 
-        // wir erstellen eine HashMap aus unserer Benutzerliste
-        // Key= "Benutzername" Value= User-Objekt
+        //wir erstellen eine HashMap aus unserer Benutzerliste
+        //Key= "Benutzername" Value= User-Objekt
         for(User user : allUsers) {
-            userMap.put(user.getUsername(), user);
+           userMap.put(user.getUsername(), user);
         }
 
         // Wir iterieren durch unsere HashMap mit den Benutzern
-        for (Map.Entry<String, User> eintrag : userMap.entrySet()) {
-
-
-            //wir iterieren durch die String Liste mit den Followern eines Benutzers
-            for(String follower : eintrag.getValue().getFollowers()) {
-
-                // wir wählen den Benutzer aus der userListe und fügen ihn zum follower-Set hinzu
-                eintrag.getValue().addFollower(userMap.get(follower));
-                // gleichzeitig fügen wir in das set für following des ausgewählten Benutzers den Gefolgten ein
-                userMap.get(follower).addFollowing(eintrag.getValue());
-            }
-        }
+//        for (Map.Entry<String, User> eintrag : userMap.entrySet()) {
+//
+//
+//            //wir iterieren durch die String Liste mit den Followern eines Benutzers
+//            for(String follower : eintrag.getValue().getFollowers()) {
+//
+//                // wir wählen den Benutzer aus der userListe und fügen ihn zum follower-Set hinzu
+//                eintrag.getValue().addFollower(userMap.get(follower));
+//                // gleichzeitig fügen wir in das set für following des ausgewählten Benutzers den Gefolgten ein
+//                userMap.get(follower).addFollowing(eintrag.getValue());
+//            }
+//        }
 
         //sout Ausgabe ---
-        System.out.println("Hallo");
-        System.out.println(userMap.get("HarryPotter").getUsername());
-        System.out.println("folgt folgenden Leuten:");
-        for (User u: userMap.get("HarryPotter").getFollowersSet()) {
-            System.out.println(u.getUsername());
-        }
+//        System.out.println("Hallo");
+//        System.out.println(userMap.get("HarryPotter").getUsername());
+//        System.out.println("folgt folgenden Leuten:");
+//        for (User u: userMap.get("HarryPotter").getFollowersSet()) {
+//            System.out.println(u.getUsername());
+//        }
 
     }
 
@@ -143,10 +137,10 @@ public class UserController {
         System.out.println("User registriert... username:" + user.getUsername() + " - status:" + user.getStatus() + " - Passwort-Hash: " + user.getPassword());
 
         //objectMapper um Benutzerdaten in json file zu speichern
-//        ObjectMapper objectMapper = new ObjectMapper();
-//
-//        JsonNode jsonNode = objectMapper.readTree(Paths.get("savefiles/users.json/").toFile());
-//        System.out.println(jsonNode.get(0));
+        //ObjectMapper objectMapper = new ObjectMapper();
+
+        //JsonNode jsonNode = objectMapper.readTree(Paths.get("savefiles/users.json/").toFile());
+        //System.out.println(jsonNode.get(0));
 
         //PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(Paths.get("savefiles/users.json/").toFile(), true)));
         // konvertiere Benutzer in json

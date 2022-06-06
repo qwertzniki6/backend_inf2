@@ -27,16 +27,16 @@ public class User {
     private String profilePicture; //TODO find or create better class than "Object"
 
 
-    private Set<User> followersSet;
+    //private Set<User> followersSet;
 
-    private Set<User> followingSet;
+    //private Set<User> followingSet;
 
     private String[] followers;
     private String[] following;
 
     public User () {
-        this.followersSet = new HashSet<>();
-        this.followingSet = new HashSet<>();
+        //this.followersSet = new HashSet<>();
+        //this.followingSet = new HashSet<>();
     }
 
     public String getUsername() {
@@ -78,9 +78,9 @@ public class User {
         return followers;
     }
 
-    public Set<User> getFollowersSet() {
-        return followersSet;
-    }
+    //public Set<User> getFollowersSet() {
+        //return followersSet;
+    //}
 
     public void setFollowers(String[] followers) {
         this.followers=followers;
@@ -90,22 +90,22 @@ public class User {
         return following;
     }
 
-    public Set<User> getFollowingSet() {
-        return followingSet;
-    }
+    //public Set<User> getFollowingSet() {
+        //return followingSet;
+    //}
 
 
     public void setFollowing(String[] following) {
         this.following = following;
     }
     
-    public void addFollower(User u) {
-        this.followersSet.add(u);
-    }
+    //public void addFollower(User u) {
+        //this.followersSet.add(u);
+    //}
 
-    public void addFollowing(User u) {
-        this.followingSet.add(u);
-    }
+    //public void addFollowing(User u) {
+        //this.followingSet.add(u);
+    //}
 
     public String toString() {
         return "string";
