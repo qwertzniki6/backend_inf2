@@ -41,8 +41,6 @@ public class UserController {
         }
         ObjectMapper objectMapper = new ObjectMapper();
 
-
-
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(new FileWriter("savefiles/users.json"), userArray);
         } catch(IOException e){
