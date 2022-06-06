@@ -1,21 +1,21 @@
 [ {
   "username" : "HarryPotter",
   "status" : "abdullah",
-  "password" : "87638276",
+  "password" : "997201388",
   "profilePicture" : "https://www.google.de/logos/doodles/2022/fasia-jansens-93rd-birthday-6753651837109432.2-l.webp",
-  "followers" : [ "HermioneGranger", "RonWeasley" ],
+  "followers" : [ "HermioneGranger", "RonWeasley", "Dumbledore" ],
   "following" : [ "HermioneGranger", "RonWeasley" ]
 }, {
   "username" : "HermioneGranger",
   "status" : "It's Vingardium Leviosa not Leviosaaa",
-  "password" : "435346",
+  "password" : "997201388",
   "profilePicture" : "www.picture.com",
   "followers" : [ "HarryPotter", "RonWeasley" ],
   "following" : [ "HarryPotter", "RonWeasley" ]
 }, {
   "username" : "Max Mustermann",
   "status" : "gewöhnlich",
-  "password" : "878083209",
+  "password" : "997201388",
   "profilePicture" : "https://www.google.de/logos/doodles/2022/fasia-jansens-93rd-birthday-6753651837109432.2-l.webp",
   "followers" : [ ],
   "following" : [ "Dumbledore" ]
@@ -25,7 +25,7 @@
   "password" : "997201388",
   "profilePicture" : "https://lh3.googleusercontent.com/S_IZxVsCA19N2rKa6v3ah1yfxG-0bWV-mhoihKNqzeQq1v042BVE8DBczg1ub146WoHf9FyulYy3j3h6wvwOaGX9816MHFDKJ3CjiEQ",
   "followers" : [ "Michael", "Max Mustermann", "Peter Pettigrew" ],
-  "following" : [ ]
+  "following" : [ "HarryPotter" ]
 }, {
   "username" : "Mehmet",
   "status" : "Ich bin neu!",
@@ -57,7 +57,7 @@
 }, {
   "username" : "example2",
   "status" : "Maschine",
-  "password" : "32290921",
+  "password" : "997201388",
   "profilePicture" : "https://www.google.de/logos/doodles/2022/fasia-jansens-93rd-birthday-6753651837109432.2-l.webp",
   "followers" : [ ],
   "following" : [ ]
@@ -78,7 +78,7 @@
 }, {
   "username" : "Dumbledores Copy",
   "status" : "Beeing a HeadMaster",
-  "password" : "87658",
+  "password" : "997201388",
   "profilePicture" : "www.picture.com",
   "followers" : [ ],
   "following" : [ ]
@@ -99,14 +99,14 @@
 }, {
   "username" : "VincentCrabbe",
   "status" : "The cake is a lie",
-  "password" : "5464634",
+  "password" : "997201388",
   "profilePicture" : "www.picture.com",
   "followers" : [ ],
   "following" : [ "DracoMalfoy" ]
 }, {
   "username" : "GregoryGoyle",
   "status" : "Slytherin rules!",
-  "password" : "76346534",
+  "password" : "997201388",
   "profilePicture" : "www.picture.com",
   "followers" : [ ],
   "following" : [ "DracoMalfoy" ]
