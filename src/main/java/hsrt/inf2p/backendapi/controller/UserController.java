@@ -140,7 +140,7 @@ public class UserController {
     public boolean loginUser(@Valid @RequestBody @NotNull LoginData login) {
         System.out.println("Login Versuch");
         String username = login.getUserName();
-        String password =login.getPassword();
+        String password = login.getPassword();
         String hashofpassword = String.valueOf((User.getSALT() + password).hashCode());
         System.out.println("Benutzer " + username + " eingegebenes Passwort ist:" + password);
         System.out.println("Gehashter Code ist: " + hashofpassword);
@@ -249,4 +249,78 @@ public class UserController {
         return returningUsers;
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/user/{username}/recommended")
+    public String getRecommendedUsers(@PathVariable String username) {
+        System.out.println("Recommended wird ausgeführt");
+
+        User user = userMap.get(username);
+
+        // Nutzer mit den meisten gemeinsamen Follower finden
+        // iteriert durch userMap und analysiert diejenigen Benutzer denen man noch nicht folgt
+        // gucke in seine Follower und vergleiche wieviele Übereinstimmungen vorhanden sind
+
+        // followingListe des übergebenen Users
+        List<String> followingListe = user.getFollowing();
+
+        // String = Benutzername, Integer = Anzahl gemeinsamer Follower
+        HashMap<String, Integer> recommendations = new HashMap<>();
+
+        // iterieren durch HashMap <Benutzername , User Objekt>
+        for (Map.Entry<String, User> eintrag : userMap.entrySet()) {
+
+            // speichern den Benutzernamen des Eintrags der Map
+            String usernameToFollow = eintrag.getValue().getUsername();
+
+            // if Verzweigung falls, Benutzer noch nicht gefolgt wird, und Benutzer nicht der gleiche Benutzer ist der übergeben wurde
+            if (  !(followingListe.contains(usernameToFollow))  &&  ! (usernameToFollow.equals(username)) ) {
+
+                // speicher den zu folgenden Benutzer in userToFollow
+                User userToFollow = eintrag.getValue();
+                Integer numberOfCommonFollowers = 0;
+
+                // iteriere durch die Follower des zu Folgenden Benutzers
+                for(String follower : userToFollow.getFollowers()) {
+
+                    // wenn einer der Follower auch ein Follower des übergebenen Benutzers ist, inkrementiere Zählvariable
+                    if(followingListe.contains(follower)) {
+                        numberOfCommonFollowers++;
+                    }
+
+                }
+                //füge den zu empfehlenden Benutzer in eine HashMap ein mit <Benutzername, Anzahl gemeinsamer Follower>
+                recommendations.put(usernameToFollow, numberOfCommonFollowers);
+            }
+        }
+
+        Stream<Map.Entry<String, Integer>> sorted = recommendations.entrySet().stream()
+        .sorted(Map.Entry.comparingByValue())
+        .collect(Collectors.toCollection(ArrayList::new) );
+
+
+        ArrayList<String> r = sorted.map(Map.Entry::getKey).collect(Collectors.toCollection(ArrayList::new));
+
+        sorted.forEach(System.out::println);
+/*
+        int highestCommonFollowers = 0;
+        Map.Entry<String, Integer> highestCommonFollowersEntry = null;
+
+
+        for(Map.Entry<String, Integer> eintrag : recommendations.entrySet()) {
+            if(eintrag.getValue() > highestCommonFollowers){
+                highestCommonFollowers = eintrag.getValue();
+                highestCommonFollowersEntry = eintrag;
+            }
+        }
+
+
+
+        if(highestCommonFollowersEntry == null) {
+            return null;
+        }
+
+        return highestCommonFollowersEntry.getKey();
+        */
+        return null;
+    }
 }
