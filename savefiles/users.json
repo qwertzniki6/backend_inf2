@@ -48,7 +48,7 @@
   "followers" : [ "VincentCrabbe", "GregoryGoyle" ],
   "following" : [ ]
 }, {
-  "username" : "example",
+  "username" : "Hans",
   "status" : "Maschine",
   "password" : "997201388",
   "profilePicture" : "https://www.google.de/logos/doodles/2022/fasia-jansens-93rd-birthday-6753651837109432.2-l.webp",
@@ -62,6 +62,13 @@
   "followers" : [ ],
   "following" : [ ]
 }, {
+  "username" : "Luna Lovegood",
+  "status" : "Hi!",
+  "password" : "997201388",
+  "profilePicture" : "https://www.google.de/logos/doodles/2022/fasia-jansens-93rd-birthday-6753651837109432.2-l.webp",
+  "followers" : [ ],
+  "following" : [ ]
+}, {
   "username" : "RonWeasley",
   "status" : "EAT SLUGS!",
   "password" : "997201388",
@@ -70,11 +77,11 @@
   "following" : [ "HarryPotter", "HermioneGranger" ]
 }, {
   "username" : "Michael",
-  "status" : "Ich bin ein Informatiker",
+  "status" : "Hi!",
   "password" : "997201388",
-  "profilePicture" : "https://www.fom.de/fileadmin/_processed_/d/4/csm_informatik-berufsbegleitend-studieren-GettyImages-832282452_d2785c5195.jpg",
+  "profilePicture" : "https://www.milestone.net/wp-content/uploads/laptop-informatik-code.jpg",
   "followers" : [ "Mehmet", "Niklas" ],
-  "following" : [ "Mehmet", "Dumbledore", "Abdullah" ]
+  "following" : [ "Mehmet", "Dumbledore", "Abdullah", "Niklas" ]
 }, {
   "username" : "Dumbledores Copy",
   "status" : "Beeing a HeadMaster",
@@ -87,7 +94,7 @@
   "status" : "Maschine",
   "password" : "997201388",
   "profilePicture" : "https://www.google.de/logos/doodles/2022/fasia-jansens-93rd-birthday-6753651837109432.2-l.webp",
-  "followers" : [ ],
+  "followers" : [ "Michael" ],
   "following" : [ "Michael" ]
 }, {
   "username" : "Peter Pettigrew",
@@ -96,6 +103,13 @@
   "profilePicture" : "https://www.google.de/logos/doodles/2022/fasia-jansens-93rd-birthday-6753651837109432.2-l.webp",
   "followers" : [ ],
   "following" : [ "Dumbledore" ]
+}, {
+  "username" : "Snape",
+  "status" : "Hi",
+  "password" : "997201388",
+  "profilePicture" : "https://www.google.de/logos/doodles/2022/fasia-jansens-93rd-birthday-6753651837109432.2-l.webp",
+  "followers" : [ ],
+  "following" : [ ]
 }, {
   "username" : "VincentCrabbe",
   "status" : "The cake is a lie",
