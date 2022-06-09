@@ -293,14 +293,16 @@ public class UserController {
             }
         }
 
-        Stream<Map.Entry<String, Integer>> sorted = recommendations.entrySet().stream()
+        Collection<Map.Entry<String, Integer>> sorted = recommendations.entrySet().stream()
         .sorted(Map.Entry.comparingByValue())
         .collect(Collectors.toCollection(ArrayList::new) );
 
 
-        ArrayList<String> r = sorted.map(Map.Entry::getKey).collect(Collectors.toCollection(ArrayList::new));
-
+        /* ArrayList<String> r = sorted.map(Map.Entry::getKey).collect(Collectors.toCollection(ArrayList::new)); */
+        System.out.println(username + " hat folgende Empfehlungen :");
         sorted.forEach(System.out::println);
+
+        sorted.
 /*
         int highestCommonFollowers = 0;
         Map.Entry<String, Integer> highestCommonFollowersEntry = null;
