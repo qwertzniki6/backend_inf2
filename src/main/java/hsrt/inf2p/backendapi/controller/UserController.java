@@ -137,7 +137,7 @@ public class UserController {
     }
 
     @PostMapping("/user/login/{username}")
-    public boolean loginUser(@Valid @RequestBody @NotNull LoginData login) {
+    public User loginUser(@Valid @RequestBody @NotNull LoginData login) {
         System.out.println("Login Versuch");
         String username = login.getUserName();
         String password = login.getPassword();
@@ -146,10 +146,10 @@ public class UserController {
         System.out.println("Gehashter Code ist: " + hashofpassword);
         if (userMap.get(username).getPassword().equals(hashofpassword)) {
             System.out.println("Login hat geklappt");
-            return true;
+            return userMap.get(username);
         }
         System.out.println("Login hat nicht geklappt");
-        return false;
+        return null;
     }
 
     /**
@@ -251,7 +251,7 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user/{username}/recommended")
-    public String getRecommendedUsers(@PathVariable String username) {
+    public ArrayList<Recommendations> getRecommendedUsers(@PathVariable String username) {
         System.out.println("Recommended wird ausgeführt");
 
         User user = userMap.get(username);
@@ -263,8 +263,9 @@ public class UserController {
         // followingListe des übergebenen Users
         List<String> followingListe = user.getFollowing();
 
+        //Array von Objekten mit Attribut username und Anzahl gemeinsamer Follower mit dem übergebenen User
         // String = Benutzername, Integer = Anzahl gemeinsamer Follower
-        HashMap<String, Integer> recommendations = new HashMap<>();
+        ArrayList <Recommendations> listRecommendations = new ArrayList<>();
 
         // iterieren durch HashMap <Benutzername , User Objekt>
         for (Map.Entry<String, User> eintrag : userMap.entrySet()) {
@@ -277,7 +278,7 @@ public class UserController {
 
                 // speicher den zu folgenden Benutzer in userToFollow
                 User userToFollow = eintrag.getValue();
-                Integer numberOfCommonFollowers = 0;
+                int numberOfCommonFollowers = 0;
 
                 // iteriere durch die Follower des zu Folgenden Benutzers
                 for(String follower : userToFollow.getFollowers()) {
@@ -289,40 +290,18 @@ public class UserController {
 
                 }
                 //füge den zu empfehlenden Benutzer in eine HashMap ein mit <Benutzername, Anzahl gemeinsamer Follower>
-                recommendations.put(usernameToFollow, numberOfCommonFollowers);
+                //recommendations.put(usernameToFollow, numberOfCommonFollowers);
+                listRecommendations.add(new Recommendations(usernameToFollow, numberOfCommonFollowers));
+
             }
         }
 
-        Collection<Map.Entry<String, Integer>> sorted = recommendations.entrySet().stream()
-        .sorted(Map.Entry.comparingByValue())
-        .collect(Collectors.toCollection(ArrayList::new) );
+        Collections.sort(listRecommendations, Collections.reverseOrder());
 
-
-        /* ArrayList<String> r = sorted.map(Map.Entry::getKey).collect(Collectors.toCollection(ArrayList::new)); */
-        System.out.println(username + " hat folgende Empfehlungen :");
-        sorted.forEach(System.out::println);
-
-        sorted.
-/*
-        int highestCommonFollowers = 0;
-        Map.Entry<String, Integer> highestCommonFollowersEntry = null;
-
-
-        for(Map.Entry<String, Integer> eintrag : recommendations.entrySet()) {
-            if(eintrag.getValue() > highestCommonFollowers){
-                highestCommonFollowers = eintrag.getValue();
-                highestCommonFollowersEntry = eintrag;
-            }
+        for (Recommendations a : listRecommendations) {
+            System.out.println(a.toString());
         }
 
-
-
-        if(highestCommonFollowersEntry == null) {
-            return null;
-        }
-
-        return highestCommonFollowersEntry.getKey();
-        */
-        return null;
+        return listRecommendations;
     }
 }

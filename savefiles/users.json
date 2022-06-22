@@ -4,7 +4,7 @@
   "password" : "997201388",
   "profilePicture" : "https://www.google.de/logos/doodles/2022/fasia-jansens-93rd-birthday-6753651837109432.2-l.webp",
   "followers" : [ "HermioneGranger", "RonWeasley", "Dumbledore" ],
-  "following" : [ "HermioneGranger", "RonWeasley" ]
+  "following" : [ "HermioneGranger", "RonWeasley", "Niklas", "Abdullah" ]
 }, {
   "username" : "HermioneGranger",
   "status" : "It's Vingardium Leviosa not Leviosaaa",
@@ -24,7 +24,7 @@
   "status" : "Beeing a HeadMaster",
   "password" : "997201388",
   "profilePicture" : "https://lh3.googleusercontent.com/S_IZxVsCA19N2rKa6v3ah1yfxG-0bWV-mhoihKNqzeQq1v042BVE8DBczg1ub146WoHf9FyulYy3j3h6wvwOaGX9816MHFDKJ3CjiEQ",
-  "followers" : [ "Michael", "Max Mustermann", "Peter Pettigrew" ],
+  "followers" : [ "Michael", "Max Mustermann", "Peter Pettigrew", "ObiWanKenobi" ],
   "following" : [ "HarryPotter" ]
 }, {
   "username" : "Mehmet",
@@ -34,11 +34,18 @@
   "followers" : [ "Michael" ],
   "following" : [ "Michael" ]
 }, {
+  "username" : "ObiWanKenobi",
+  "status" : "Mein Junger Padawan!",
+  "password" : "997201388",
+  "profilePicture" : "https://sm.ign.com/ign_de/screenshot/default/obi_eqtu.jpg",
+  "followers" : [ ],
+  "following" : [ "Dumbledore" ]
+}, {
   "username" : "Abdullah",
   "status" : "Ich bin eine Maschine",
   "password" : "997201388",
   "profilePicture" : "https://www.google.de/logos/doodles/2022/fasia-jansens-93rd-birthday-6753651837109432.2-l.webp",
-  "followers" : [ "Michael" ],
+  "followers" : [ "Michael", "HarryPotter" ],
   "following" : [ ]
 }, {
   "username" : "DracoMalfoy",
@@ -46,13 +53,6 @@
   "password" : "34644435",
   "profilePicture" : "www.picture.com",
   "followers" : [ "VincentCrabbe", "GregoryGoyle" ],
-  "following" : [ ]
-}, {
-  "username" : "Hans",
-  "status" : "Maschine",
-  "password" : "997201388",
-  "profilePicture" : "https://www.google.de/logos/doodles/2022/fasia-jansens-93rd-birthday-6753651837109432.2-l.webp",
-  "followers" : [ ],
   "following" : [ ]
 }, {
   "username" : "example2",
@@ -83,6 +83,13 @@
   "followers" : [ "Mehmet", "Niklas" ],
   "following" : [ "Mehmet", "Dumbledore", "Abdullah", "Niklas" ]
 }, {
+  "username" : "Hans",
+  "status" : "Maschine",
+  "password" : "997201388",
+  "profilePicture" : "https://www.google.de/logos/doodles/2022/fasia-jansens-93rd-birthday-6753651837109432.2-l.webp",
+  "followers" : [ ],
+  "following" : [ ]
+}, {
   "username" : "Dumbledores Copy",
   "status" : "Beeing a HeadMaster",
   "password" : "997201388",
@@ -94,7 +101,7 @@
   "status" : "Maschine",
   "password" : "997201388",
   "profilePicture" : "https://www.google.de/logos/doodles/2022/fasia-jansens-93rd-birthday-6753651837109432.2-l.webp",
-  "followers" : [ "Michael" ],
+  "followers" : [ "Michael", "HarryPotter" ],
   "following" : [ "Michael" ]
 }, {
   "username" : "Peter Pettigrew",
