@@ -35,6 +35,6 @@ public class Recommendations implements Comparable<Recommendations>{
 
     @Override
     public String toString(){
-        return "Benutzername: " + username + " Gemeinsame Follower: " + commonFollowers;
+        return "Benutzername: " + username + " Anzahl gemeinsamer Follower: " + commonFollowers;
     }
 }
