@@ -42,7 +42,7 @@ public class UserController {
 
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(new FileWriter("savefiles/users.json"), userArray);
-        } catch(IOException e){
+        } catch (IOException e){
             System.out.println(e);
         }
     }
@@ -71,7 +71,7 @@ public class UserController {
 
         //wir erstellen eine HashMap aus unserer Benutzerliste
         //Key= "Benutzername" Value= User-Objekt
-        for(User user : allUsers) {
+        for (User user : allUsers) {
            userMap.put(user.getUsername(), user);
         }
     }
@@ -236,7 +236,7 @@ public class UserController {
         if (userMap.get(follower).removeFollowing(following)==false) {
             System.out.println("entfernen des gefolgten " + following + "aus following von" + follower + "hat nicht geklappt!");
         }
-        if(userMap.get(following).removeFollower(follower)==false){
+        if (userMap.get(following).removeFollower(follower)==false){
             System.out.println("entfernen von" + follower + "aus den followern von" + following + " hat nicht geklappt!");
         }
 
@@ -251,7 +251,7 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user/{username}/recommended")
-    public ArrayList<Recommendations> getRecommendedUsers(@PathVariable String username) {
+    public List<User> getRecommendedUsers(@PathVariable String username) {
         System.out.println("Recommended wird ausgeführt");
 
         User user = userMap.get(username);
@@ -281,10 +281,10 @@ public class UserController {
                 int numberOfCommonFollowers = 0;
 
                 // iteriere durch die Follower des zu Folgenden Benutzers
-                for(String follower : userToFollow.getFollowers()) {
+                for (String follower : userToFollow.getFollowers()) {
 
                     // wenn einer der Follower auch ein Follower des übergebenen Benutzers ist, inkrementiere Zählvariable
-                    if(followingListe.contains(follower)) {
+                    if (followingListe.contains(follower)) {
                         numberOfCommonFollowers++;
                     }
 
@@ -301,7 +301,18 @@ public class UserController {
         for (Recommendations a : listRecommendations) {
             System.out.println(a.toString());
         }
+        List <User> results = new ArrayList<>();
 
-        return listRecommendations;
+        for (int i=0; i < 5; i++) {
+            Recommendations rec = listRecommendations.get(i);
+            String userNameOfRec = rec.getUsername();
+            if ( rec.getCommonFollowers() != 0) {
+                results.add( userMap.get( userNameOfRec ) );
+            }
+        }
+
+
+        return results;
+
     }
 }

@@ -90,6 +90,13 @@
   "followers" : [ ],
   "following" : [ ]
 }, {
+  "username" : "Pascal",
+  "status" : "Hi",
+  "password" : "997201388",
+  "profilePicture" : "https://www.google.de/logos/doodles/2022/fasia-jansens-93rd-birthday-6753651837109432.2-l.webp",
+  "followers" : [ ],
+  "following" : [ ]
+}, {
   "username" : "Dumbledores Copy",
   "status" : "Beeing a HeadMaster",
   "password" : "997201388",
